@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO BATTLE | Биология 1-курс</title>
+
+<style>
+:root{
+  --bg:#071326;
+  --panel:#10223b;
+  --panel2:#142d49;
+  --cyan:#32d9e6;
+  --green:#54eead;
+  --yellow:#ffd36c;
+  --white:#f4faff;
+  --muted:#b3c5d8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 5%,#17436b 0%,transparent 36%),
+    radial-gradient(circle at 90% 90%,#123a37 0%,transparent 40%),
+    var(--bg);
+  color:var(--white);
+  min-height:100vh;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:18px 5%;
+  border-bottom:1px solid #ffffff22;
+}
+.logo{
+  color:var(--cyan);
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+header small{color:var(--muted)}
+main{
+  max-width:1150px;
+  margin:auto;
+  padding:35px 20px;
+}
+section{display:none}
+section.active{display:block;animation:fade .35s}
+@keyframes fade{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card{
+  background:linear-gradient(145deg,#142b48,#0b1e34);
+  border:1px solid #ffffff20;
+  padding:30px;
+  border-radius:24px;
+  box-shadow:0 16px 50px #0003;
+}
+.center{text-align:center}
+h1{
+  font-size:clamp(36px,7vw,74px);
+  line-height:1.12;
+  margin:20px 0;
+}
+h2{font-size:clamp(26px,4vw,40px)}
+h3{font-size:23px}
+p,li{
+  font-size:19px;
+  line-height:1.75;
+}
+.muted{color:var(--muted)}
+.glow{color:var(--cyan)}
+.tag{
+  display:inline-block;
+  background:#32d9e620;
+  color:var(--cyan);
+  border:1px solid #32d9e650;
+  padding:9px 15px;
+  border-radius:30px;
+  font-weight:700;
+}
+button{
+  border:0;
+  border-radius:13px;
+  padding:15px 24px;
+  font-size:17px;
+  font-weight:750;
+  cursor:pointer;
+  transition:.2s;
+}
+button:hover:not(:disabled){transform:translateY(-2px)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.primary{
+  color:#03212a;
+  background:linear-gradient(125deg,var(--cyan),var(--green));
+}
+.secondary{
+  background:#213e5b;
+  color:white;
+}
+.warning{
+  color:#302100;
+  background:var(--yellow);
+}
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+.center .buttons{justify-content:center}
+.hero{padding:65px 25px}
+.hero p{max-width:750px;margin:0 auto 28px}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:28px;
+}
+.stat{
+  background:#ffffff0b;
+  border:1px solid #ffffff19;
+  border-radius:17px;
+  padding:20px;
+  text-align:center;
+}
+.stat strong{
+  display:block;
+  color:var(--green);
+  font-size:32px;
+}
+.stat span{color:var(--muted)}
+.progress{
+  width:100%;
+  height:10px;
+  border-radius:20px;
+  background:#294159;
+  overflow:hidden;
+  margin:22px 0;
+}
+.progress div{
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  height:100%;
+  width:0%;
+  transition:width .3s;
+}
+.lesson-grid{
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:25px;
+  align-items:center;
+}
+.lesson-body ul{padding-left:25px}
+.lesson-body li{margin-bottom:10px}
+.note{
+  background:#43e4b114;
+  border-left:4px solid var(--green);
+  border-radius:10px;
+  padding:17px 20px;
+  margin-top:22px;
+  font-size:19px;
+}
+.diagram{
+  padding:15px;
+  border-radius:20px;
+  background:#071c30;
+  border:1px solid #25506a;
+}
+.diagram svg{width:100%;height:auto;display:block}
+.teams{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.team-card{
+  border:2px solid #ffffff25;
+  background:var(--panel2);
+  padding:18px;
+  border-radius:18px;
+  text-align:center;
+  min-width:0;
+}
+.team-card.current{
+  border-color:var(--cyan);
+  box-shadow:0 0 22px #32d9e633;
+}
+.team-card .name{
+  font-size:18px;
+  overflow-wrap:anywhere;
+}
+.team-card .score{
+  font-size:36px;
+  font-weight:900;
+  color:var(--yellow);
+}
+input{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  font-size:17px;
+  border-radius:12px;
+  border:1px solid #4b6683;
+  color:white;
+  background:#0b1e34;
+}
+label{font-size:19px}
+.game-head{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.timer{
+  font-size:30px;
+  font-weight:900;
+  color:var(--yellow);
+}
+.timer-track{
+  background:#31465e;
+  border-radius:20px;
+  height:9px;
+  overflow:hidden;
+  margin:14px 0 25px;
+}
+.timer-track div{
+  width:100%;
+  height:100%;
+  background:var(--yellow);
+  transition:width .5s linear;
+}
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:26px;
+}
+.answer{
+  min-height:80px;
+  color:white;
+  font-weight:700;
+  font-size:19px;
+  background:#1b3957;
+  border:2px solid #426180;
+  text-align:left;
+}
+.answer:hover:not(:disabled){
+  background:#28557b;
+  border-color:var(--cyan);
+}
+.answer.correct{
+  background:#136c4d;
+  border-color:var(--green);
+}
+.answer.wrong{
+  background:#773744;
+  border-color:#ff8594;
+}
+.feedback{
+  margin-top:20px;
+  padding:18px;
+  border-radius:14px;
+  background:#203d58;
+  line-height:1.7;
+  font-size:19px;
+}
+.feedback:empty{display:none}
+.rank{
+  padding:18px;
+  border-radius:15px;
+  background:#1a3652;
+  margin:12px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  font-size:21px;
+}
+.rank span{overflow-wrap:anywhere}
+footer{
+  text-align:center;
+  padding:30px;
+  color:#9db8ce;
+  border-top:1px solid #ffffff22;
+}
+footer strong{color:var(--cyan)}
+[hidden]{display:none!important}
+@media(max-width:700px){
+  header{padding:15px}
+  main{padding:20px 12px}
+  .card{padding:20px}
+  .lesson-grid{grid-template-columns:1fr}
+  .teams{grid-template-columns:1fr}
+  .answers{grid-template-columns:1fr}
+  .stats{gap:7px}
+  .stat{padding:12px 5px}
+  .stat strong{font-size:24px}
+  .stat span{font-size:13px}
+  p,li{font-size:17px}
+  .hero{padding:35px 15px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">🧬 BIO BATTLE</div>
+  <small>БИОЛОГИЯ • 1-КУРС</small>
+</header>
+
+<main>
+
+<!-- БАСТЫ БЕТ -->
+<section id="home" class="active">
+  <div class="card hero center">
+    <span class="tag">ИНТЕРАКТИВТІ БИОЛОГИЯ САБАҒЫ</span>
+    <h1>Жасушаның <span class="glow">құрылысы</span><br> мен қызметі</h1>
+    <p>
+      Жасушаның таңғажайып әлемін зертте!
+      Жаңа білім ал, органоидтердің қызметін үйрен,
+      кейін үш команда болып BIO BATTLE ойынында жарыс.
+    </p>
+    <div class="buttons">
+      <button class="primary" onclick="startLesson()">
+        📚 Сабақты бастау
+      </button>
+      <button class="secondary" onclick="openSetup()">
+        🏆 Бірден ойынға өту
+      </button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>9</strong><span>Түсіндірме бет</span></div>
+      <div class="stat"><strong>3</strong><span>Команда</span></div>
+      <div class="stat"><strong>24</strong><span>Ойын сұрағы</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ТҮСІНДІРМЕ -->
+<section id="lesson">
+  <div class="game-head">
+    <span class="tag">📘 ТЕОРИЯЛЫҚ БӨЛІМ</span>
+    <strong id="lessonCount"></strong>
+  </div>
+  <div class="progress"><div id="lessonProgress"></div></div>
+
+  <div class="card">
+    <h2 id="lessonTitle"></h2>
+    <div class="lesson-grid">
+      <div id="lessonBody" class="lesson-body"></div>
+      <div class="diagram">
+        <svg viewBox="0 0 470 360"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Өсімдік жасушасының негізгі бөліктері">
+          <defs>
+            <linearGradient id="cellGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#37c489"/>
+              <stop offset="100%" stop-color="#115e51"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="28" width="430" height="304" rx="65"
+            fill="#285d3d" stroke="#78ed8d" stroke-width="12"/>
+          <rect x="32" y="40" width="406" height="280" rx="58"
+            fill="url(#cellGrad)" stroke="#b4f6c8" stroke-width="4"/>
+          <ellipse cx="285" cy="182" rx="110" ry="85"
+            fill="#8adacb" stroke="#c2f9e8" stroke-width="3"/>
+          <circle cx="140" cy="150" r="47"
+            fill="#8b65c9" stroke="#e1c5ff" stroke-width="5"/>
+          <circle cx="150" cy="147" r="18" fill="#4c2687"/>
+          <ellipse cx="95" cy="245" rx="38" ry="19"
+            fill="#258a54" stroke="#b5f2aa" stroke-width="4"
+            transform="rotate(-30 95 245)"/>
+          <ellipse cx="370" cy="99" rx="36" ry="17"
+            fill="#258a54" stroke="#b5f2aa" stroke-width="4"
+            transform="rotate(30 370 99)"/>
+          <ellipse cx="382" cy="264" rx="34" ry="17"
+            fill="#258a54" stroke="#b5f2aa" stroke-width="4"
+            transform="rotate(-30 382 264)"/>
+          <ellipse cx="120" cy="72" rx="25" ry="12"
+            fill="#f7ad65" stroke="#ffdcac" stroke-width="3"/>
+          <ellipse cx="366" cy="202" rx="25" ry="12"
+            fill="#f7ad65" stroke="#ffdcac" stroke-width="3"/>
+          <g fill="white" font-size="15" font-weight="bold"
+            stroke="#15354c" stroke-width="3" paint-order="stroke">
+            <text x="105" y="150">Ядро</text>
+            <text x="244" y="183">Вакуоль</text>
+            <text x="52" y="293">Хлоропласт</text>
+            <text x="292" y="43">Қабырға</text>
+          </g>
+        </svg>
+        <p class="muted center" style="font-size:14px">
+          Өсімдік жасушасының қарапайым сызбасы
+        </p>
+      </div>
+    </div>
+    <div class="note" id="lessonNote"></div>
+    <div class="buttons">
+      <button class="secondary" onclick="previousLesson()">← Артқа</button>
+      <button class="primary" id="lessonNext" onclick="nextLesson()">
+        Келесі тақырып →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- КОМАНДАЛАРДЫ ДАЙЫНДАУ -->
+<section id="setup">
+  <div class="card">
+    <span class="tag">🏆 BIO BATTLE</span>
+    <h2>Командалар шайқасы</h2>
+    <p class="muted">
+      Студенттерді үш топқа бөліңіз.
+      Әр команда өз атауын таңдай алады.
+    </p>
+
+    <div class="teams">
+      <div class="team-card">
+        <h3>🧬 1-команда</h3>
+        <label for="team1">Атауы</label>
+        <input id="team1" maxlength="30" value="ДНҚ">
+      </div>
+      <div class="team-card">
+        <h3>⚡ 2-команда</h3>
+        <label for="team2">Атауы</label>
+        <input id="team2" maxlength="30" value="Митохондрия">
+      </div>
+      <div class="team-card">
+        <h3>🌿 3-команда</h3>
+        <label for="team3">Атауы</label>
+        <input id="team3" maxlength="30" value="Хлоропласт">
+      </div>
+    </div>
+
+    <h3>Ойынның үш кезеңі</h3>
+    <p>⚡ 1-кезең: Жылдам жауап — 10 ұпай</p>
+    <p>🧠 2-кезең: Шындық немесе жалған — 20 ұпай</p>
+    <p>🔬 3-кезең: Құпия органоид — 30 ұпай</p>
+    <p class="muted">
+      Командалар кезекпен жауап береді.
+      Әр сұрақта таймер бар. Жауап берілген бойда
+      уақыт тоқтайды және келесі сұраққа бірден өтуге болады.
+    </p>
+
+    <div class="buttons">
+      <button class="primary" onclick="startGame()">🚀 Ойынды бастау</button>
+      <button class="secondary" onclick="setView('home')">Басты бет</button>
+    </div>
+  </div>
+</section>
+
+<!-- ОЙЫН -->
+<section id="game">
+  <div class="game-head">
+    <span class="tag" id="roundName">1-КЕЗЕҢ</span>
+    <strong id="questionCount">1 / 24</strong>
+  </div>
+
+  <div class="progress"><div id="gameProgress"></div></div>
+
+  <div class="teams" id="scoreboard"></div>
+
+  <div class="card" style="margin-top:22px">
+    <div class="game-head">
+      <span class="tag" id="turnLabel"></span>
+      <div class="timer">⏱ <span id="timeValue">35</span> с</div>
+    </div>
+
+    <div class="timer-track"><div id="timerBar"></div></div>
+
+    <h2 id="questionTitle"></h2>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+
+    <div class="buttons">
+      <button class="secondary" id="skipButton"
+        onclick="chooseAnswer(-1)">
+        Өткізу
+      </button>
+      <button class="primary" id="nextButton"
+        onclick="nextQuestion()" hidden>
+        Келесі сұрақ →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- НӘТИЖЕ -->
+<section id="result">
+  <div class="card center">
+    <span class="tag">🎉 ОЙЫН АЯҚТАЛДЫ</span>
+    <h1>Нәтижелер</h1>
+    <h2 class="glow" id="winner"></h2>
+    <div id="ranking"></div>
+    <p class="muted">
+      Барлық қатысушыларға рақмет!
+      Білімді бірге меңгеріп, бірге дамимыз.
+    </p>
+    <div class="buttons">
+      <button class="primary" onclick="openSetup()">🔄 Қайта ойнау</button>
+      <button class="secondary" onclick="startLesson()">📚 Тақырыпқа оралу</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  🧬 BIO BATTLE • Биология • 1-курс
+  <p>Created by <strong>Darkhan</strong> © 2026</p>
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+function setView(id){
+  clearInterval(timerId);
+  document.querySelectorAll("main section").forEach(section=>{
+    section.classList.toggle("active",section.id===id);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ТЕОРИЯЛЫҚ МАТЕРИАЛ
+const lessons=[
+  {
+    title:"1. Жасуша дегеніміз не?",
+    body:`
+      <p><b>Жасуша</b> — тірі ағзалардың құрылысы
+      мен тіршілік әрекетінің негізгі бірлігі.</p>
+      <p>Адам, жануар, өсімдік және көптеген
+      микроағзалар жасушалардан тұрады.</p>
+      <ul>
+        <li>Жасуша қоректенеді және зат алмасады.</li>
+        <li>Энергияны пайдаланады.</li>
+        <li>Өсіп, кейбір жағдайларда бөлініп көбейеді.</li>
+        <li>Сыртқы орта өзгерістеріне жауап береді.</li>
+      </ul>
+      <p>Көпжасушалы ағзада жасушалар бірігіп ұлпа,
+      ал ұлпалар мүшелер түзеді.</p>`,
+    note:"📒 Дәптерге: Жасуша — тірі ағзаның құрылымдық және қызметтік негізгі бірлігі."
+  },
+  {
+    title:"2. Жасуша теориясы",
+    body:`
+      <p>Жасуша теориясы тірі ағзалардың жасушалық
+      құрылысының ортақ екенін түсіндіреді.</p>
+      <ul>
+        <li>Барлық жасушалы тірі ағзалар бір немесе
+        бірнеше жасушадан тұрады.</li>
+        <li>Жасуша — құрылыс пен қызметтің негізгі бірлігі.</li>
+        <li>Жаңа жасушалар бұрынғы жасушалардың бөлінуі
+        арқылы пайда болады.</li>
+      </ul>
+      <p>М. Шлейден мен Т. Шванн жасуша теориясының
+      қалыптасуына үлкен үлес қосты.
+      Р. Вирхов жаңа жасушалардың бұрынғы
+      жасушалардан пайда болатынын тұжырымдады.</p>`,
+    note:"📒 Үш қағида: жасушалық құрылыс, қызметтік бірлік, жасушадан жасушаның пайда болуы."
+  },
+  {
+    title:"3. Мембрана және цитоплазма",
+    body:`
+      <p><b>Плазмалық мембрана</b> жасушаның
+      ішкі ортасын сыртқы ортадан бөліп тұрады.</p>
+      <ul>
+        <li>Заттардың жасушаға кіруін және шығуын реттейді.</li>
+        <li>Қорғаныш пен жасушалық байланысты қамтамасыз етеді.</li>
+        <li>Негізінен липидтер мен нәруыздардан тұрады.</li>
+      </ul>
+      <p><b>Цитоплазма</b> — жасушаның ішіндегі
+      органоидтер орналасатын орта.
+      Онда көптеген биохимиялық реакциялар жүреді.</p>
+      <p>Мембрананы таңдаулы өткізгіш қақпамен
+      салыстыруға болады.</p>`,
+    note:"📒 Мембрана — зат алмасуды реттейді. Цитоплазма — көптеген реакциялар жүретін орта."
+  },
+  {
+    title:"4. Ядро және ДНҚ",
+    body:`
+      <p><b>Ядро</b> — эукариот жасушасының
+      генетикалық ақпаратын сақтайтын негізгі құрылым.</p>
+      <ul>
+        <li>Ядрода ДНҚ-ның негізгі бөлігі орналасады.</li>
+        <li>ДНҚ тұқымқуалаушылық ақпаратты сақтайды.</li>
+        <li>Гендер ағзаның белгілері туралы ақпарат тасиды.</li>
+        <li>Ядро жасуша қызметінің реттелуіне қатысады.</li>
+      </ul>
+      <p>Бактериялар — прокариоттар.
+      Олардың мембранамен қоршалған ядросы болмайды.</p>`,
+    note:"📒 Ядро — генетикалық ақпаратты сақтайды. ДНҚ — тұқымқуалаушылық ақпарат тасымалдаушысы."
+  },
+  {
+    title:"5. Рибосома, ЭПТ және Гольджи",
+    body:`
+      <p>Жасушада нәруыздарды жасау және оларды
+      тасымалдау үшін бірнеше құрылым жұмыс істейді.</p>
+      <ul>
+        <li><b>Рибосома:</b> нәруыз синтездейді.</li>
+        <li><b>Түйіршікті эндоплазмалық тор:</b>
+        рибосомалармен бірге нәруыз синтезі мен
+        тасымалына қатысады.</li>
+        <li><b>Тегіс эндоплазмалық тор:</b>
+        липидтер синтезіне қатысады.</li>
+        <li><b>Гольджи кешені:</b> заттарды өңдейді,
+        сұрыптайды және тасымалдауға дайындайды.</li>
+      </ul>
+      <p>Мысал: рибосома — өндіріс орны,
+      ал Гольджи кешені — дайын өнімді сұрыптайтын бөлім.</p>`,
+    note:"📒 Рибосома — нәруыз. ЭПТ — синтез және тасымал. Гольджи — өңдеу, сұрыптау."
+  },
+  {
+    title:"6. Митохондрия және энергия",
+    body:`
+      <p><b>Митохондрия</b> — эукариот жасушасында
+      энергия алмасуға қатысатын органоид.</p>
+      <ul>
+        <li>Жасушалық тыныс алу үдерістеріне қатысады.</li>
+        <li>АТФ молекулаларының көп мөлшерде
+        түзілуін қамтамасыз етеді.</li>
+        <li>АТФ жасушаның жұмысына энергия береді.</li>
+      </ul>
+      <p>Митохондрияны кейде жасушаның
+      «энергетикалық станциясы» дейді.</p>
+      <p>Есте сақта: фотосинтез бен жасушалық
+      тыныс алу — әртүрлі үдерістер.</p>`,
+    note:"📒 Митохондрия — жасушалық тыныс алу және АТФ түзілуімен байланысты."
+  },
+  {
+    title:"7. Өсімдік жасушасының ерекшеліктері",
+    body:`
+      <p>Өсімдік жасушасында жануар жасушасынан
+      ерекшеленетін маңызды құрылымдар бар.</p>
+      <ul>
+        <li><b>Жасуша қабырғасы:</b> целлюлозадан
+        тұрады, тірек және қорғаныш қызметін атқарады.</li>
+        <li><b>Хлоропласт:</b> фотосинтез жүретін органоид.</li>
+        <li><b>Ірі орталық вакуоль:</b> жасуша шырынын
+        сақтайды және тургорды сақтауға көмектеседі.</li>
+      </ul>
+      <p>Хлоропласт күн сәулесінің энергиясын
+      пайдаланып органикалық заттардың түзілуіне
+      қатысады. Бірақ барлық өсімдік жасушасында
+      хлоропласт бола бермейді.</p>`,
+    note:"📒 Өсімдік: қабырға — целлюлоза; хлоропласт — фотосинтез; вакуоль — сақтау, тургор."
+  },
+  {
+    title:"8. Өсімдік пен жануар жасушасын салыстыру",
+    body:`
+      <p><b>Екеуіне ортақ:</b> плазмалық мембрана,
+      цитоплазма, рибосомалар, митохондриялар
+      және әдетте ядро болады.</p>
+      <ul>
+        <li><b>Өсімдік жасушасы:</b> жасуша қабырғасы,
+        әдетте ірі орталық вакуоль бар;
+        фотосинтез жасайтын жасушаларында
+        хлоропласт болады.</li>
+        <li><b>Жануар жасушасы:</b> жасуша қабырғасы
+        және хлоропласт болмайды.</li>
+      </ul>
+      <p>Өсімдіктегі фотосинтез күн сәулесін
+      пайдаланады, ал өсімдік пен жануар
+      жасушаларының екеуінде де тыныс алу жүреді.</p>`,
+    note:"📒 Ортақ: мембрана, цитоплазма, рибосома, митохондрия. Ерекшелік: қабырға, хлоропласт, вакуоль."
+  },
+  {
+    title:"9. Қорытынды және дәптермен жұмыс",
+    body:`
+      <p>Сабақтың негізгі ұғымдарын қайталайық.</p>
+      <ul>
+        <li><b>Ядро:</b> генетикалық ақпарат.</li>
+        <li><b>Мембрана:</b> заттардың өтуін реттеу.</li>
+        <li><b>Рибосома:</b> нәруыз синтезі.</li>
+        <li><b>Митохондрия:</b> АТФ түзілуі.</li>
+        <li><b>Хлоропласт:</b> фотосинтез.</li>
+        <li><b>Вакуоль:</b> сақтау және тургор.</li>
+        <li><b>Гольджи:</b> өңдеу және сұрыптау.</li>
+      </ul>
+      <p>Дәптерге «Органоид — қызметі» деген
+      екі бағаннан тұратын шағын кесте сызып,
+      негізгі ұғымдарды жазыңдар.</p>
+      <p><b>Енді алған білімімізді ойын арқылы тексереміз!</b></p>`,
+    note:"🎯 Түсіндірме аяқталды! «Ойынға өту» батырмасын басыңдар."
+  }
+];
+
+let lessonIndex=0;
+let timerId=null;
+
+function startLesson(){
+  lessonIndex=0;
+  showLesson();
+  setView("lesson");
+}
+function showLesson(){
+  const item=lessons[lessonIndex];
+  $("lessonTitle").textContent=item.title;
+  $("lessonBody").innerHTML=item.body;
+  $("lessonNote").textContent=item.note;
+  $("lessonCount").textContent=
+    (lessonIndex+1)+" / "+lessons.length;
+  $("lessonProgress").style.width=
+    ((lessonIndex+1)/lessons.length*100)+"%";
+  $("lessonNext").textContent=
+    lessonIndex===lessons.length-1
+      ?"🏆 Ойынға өту":"Келесі тақырып →";
+}
+function nextLesson(){
+  if(lessonIndex<lessons.length-1){
+    lessonIndex++;
+    showLesson();
+    window.scrollTo(0,0);
+  }else{
+    openSetup();
+  }
+}
+function previousLesson(){
+  if(lessonIndex>0){
+    lessonIndex--;
+    showLesson();
+    window.scrollTo(0,0);
+  }else{
+    setView("home");
+  }
+}
+function openSetup(){setView("setup")}
+
+// ОЙЫН СҰРАҚТАРЫ
+const questions=[
+
+// 1-КЕЗЕҢ: 9 СҰРАҚ
+{
+  level:1,
+  q:"Тірі ағзаның құрылымдық негізгі бірлігі не?",
+  opts:["Мүше","Жасуша","Ұлпа","Молекула"],
+  correct:1,
+  exp:"Жасуша — тірі ағзаның құрылымдық және қызметтік негізгі бірлігі."
+},
+{
+  level:1,
+  q:"Жасушаға заттардың кіруі мен шығуын не реттейді?",
+  opts:["Мембрана","Ядро","Рибосома","Вакуоль"],
+  correct:0,
+  exp:"Плазмалық мембрана заттардың өтуін таңдамалы түрде реттейді."
+},
+{
+  level:1,
+  q:"Эукариот жасушасында ДНҚ-ның негізгі бөлігі қайда орналасады?",
+  opts:["Гольджиде","Мембранада","Ядрода","Вакуольде"],
+  correct:2,
+  exp:"Ядро генетикалық ақпараттың негізгі бөлігін сақтайды."
+},
+{
+  level:1,
+  q:"АТФ түзілуімен тығыз байланысты органоид?",
+  opts:["Рибосома","Хлоропласт","Ядро","Митохондрия"],
+  correct:3,
+  exp:"Митохондрия жасушалық тыныс алуда көп мөлшерде АТФ түзеді."
+},
+{
+  level:1,
+  q:"Нәруыз синтезін қандай құрылым атқарады?",
+  opts:["Вакуоль","Рибосома","Қабырға","Ядрошық"],
+  correct:1,
+  exp:"Рибосомалар аминқышқылдарынан нәруыз құрастырады."
+},
+{
+  level:1,
+  q:"Фотосинтез қандай органоидта жүреді?",
+  opts:["Хлоропласт","Митохондрия","Ядро","Рибосома"],
+  correct:0,
+  exp:"Хлоропласт жарық энергиясын пайдаланып фотосинтез жүргізеді."
+},
+{
+  level:1,
+  q:"Өсімдік жасушасы қабырғасының негізгі заты қандай?",
+  opts:["Крахмал","Глюкоза","Целлюлоза","Нәруыз"],
+  correct:2,
+  exp:"Өсімдік жасушасының қабырғасында целлюлоза басым болады."
+},
+{
+  level:1,
+  q:"Жасуша шырыны жиналатын құрылым?",
+  opts:["Ядро","Рибосома","Митохондрия","Вакуоль"],
+  correct:3,
+  exp:"Вакуольде су және еріген заттар сақталады."
+},
+{
+  level:1,
+  q:"Қай ағзада мембранамен қоршалған ядро жоқ?",
+  opts:["Бактерияда","Адамда","Қайыңда","Мысықта"],
+  correct:0,
+  exp:"Бактериялар прокариоттарға жатады."
+},
+
+// 2-КЕЗЕҢ: 9 СҰРАҚ
+{
+  level:2,
+  q:"Жасуша — тірі ағзалардың құрылысының негізгі бірлігі.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:0,
+  exp:"Бұл — жасуша теориясының негізгі қағидаларының бірі."
+},
+{
+  level:2,
+  q:"Рибосомалар нәруыз синтездейді.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:0,
+  exp:"Рибосоманың басты қызметі — нәруыз синтезі."
+},
+{
+  level:2,
+  q:"Митохондрияда фотосинтез жүреді.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:1,
+  exp:"Фотосинтез хлоропластта, ал жасушалық тыныс алу митохондрияда жүреді."
+},
+{
+  level:2,
+  q:"Өсімдік жасушасында целлюлозалы қабырға болады.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:0,
+  exp:"Целлюлозалы жасуша қабырғасы өсімдікке тірек береді."
+},
+{
+  level:2,
+  q:"Жануар жасушасында хлоропласт болады.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:1,
+  exp:"Жануар жасушасында хлоропласт болмайды."
+},
+{
+  level:2,
+  q:"Прокариоттарда мембранамен қоршалған ядро бар.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:1,
+  exp:"Прокариоттардың генетикалық материалы ядро қабықшасымен қоршалмайды."
+},
+{
+  level:2,
+  q:"Цитоплазмада көптеген биохимиялық реакциялар жүреді.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:0,
+  exp:"Цитоплазма көптеген жасушалық үдерістерге орта болады."
+},
+{
+  level:2,
+  q:"Гольджи кешені заттарды өңдеу мен сұрыптауға қатысады.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:0,
+  exp:"Гольджи кешені молекулаларды өңдеп, тиісті жерге жіберуге дайындайды."
+},
+{
+  level:2,
+  q:"Барлық өсімдік жасушаларында хлоропласт болады.",
+  opts:["✅ Шындық","❌ Жалған"],
+  correct:1,
+  exp:"Мысалы, көптеген тамыр жасушаларында хлоропласт болмайды."
+},
+
+// 3-КЕЗЕҢ: 6 СҰРАҚ
+{
+  level:3,
+  q:"ҚҰПИЯ ОРГАНОИД: Мен генетикалық ақпараттың негізгі бөлігін сақтаймын. Мен кіммін?",
+  opts:["Ядро","Рибосома","Вакуоль","Гольджи"],
+  correct:0,
+  exp:"Ядро — эукариот жасушасының генетикалық ақпарат орталығы."
+},
+{
+  level:3,
+  q:"ҚҰПИЯ ОРГАНОИД: Мен жасушалық тыныс алу кезінде көп мөлшерде АТФ түзуге қатысамын.",
+  opts:["Хлоропласт","Митохондрия","Ядро","Вакуоль"],
+  correct:1,
+  exp:"Митохондрия энергия алмасудың маңызды орталығы."
+},
+{
+  level:3,
+  q:"ҚҰПИЯ ОРГАНОИД: Мен аминқышқылдарынан нәруыз тізбегін құрамын.",
+  opts:["Гольджи","Мембрана","Рибосома","Хлоропласт"],
+  correct:2,
+  exp:"Нәруыз синтезі рибосомаларда іске асады."
+},
+{
+  level:3,
+  q:"ҚҰПИЯ ОРГАНОИД: Мен күн сәулесінің энергиясын пайдаланып фотосинтез жүргіземін.",
+  opts:["Митохондрия","Ядро","Рибосома","Хлоропласт"],
+  correct:3,
+  exp:"Хлоропласт құрамындағы хлорофилл жарықты сіңіреді."
+},
+{
+  level:3,
+  q:"ҚҰПИЯ ОРГАНОИД: Мен жасуша шырынын сақтап, тургорды ұстап тұруға көмектесемін.",
+  opts:["Вакуоль","Ядро","Рибосома","Гольджи"],
+  correct:0,
+  exp:"Ірі орталық вакуоль өсімдік жасушасының тургорын сақтауға көмектеседі."
+},
+{
+  level:3,
+  q:"ҚҰПИЯ ҚҰРЫЛЫМ: Мен жасушаны сыртқы ортадан бөліп, заттардың өтуін реттеймін.",
+  opts:["Цитоплазма","Плазмалық мембрана","Ядрошық","Рибосома"],
+  correct:1,
+  exp:"Плазмалық мембрана — таңдаулы өткізгіш шекара."
+}
+];
+
+let teams=[];
+let questionIndex=0;
+let answered=false;
+let timeLeft=0;
+let totalTime=0;
+
+function startGame(){
+  const defaults=["ДНҚ","Митохондрия","Хлоропласт"];
+  teams=[0,1,2].map(i=>({
+    name:$( "team"+(i+1) ).value.trim() || defaults[i],
+    score:0
+  }));
+  questionIndex=0;
+  setView("game");
+  showQuestion();
+}
+
+function drawScoreboard(){
+  const wrap=$("scoreboard");
+  wrap.replaceChildren();
+  teams.forEach((team,i)=>{
+    const card=document.createElement("div");
+    card.className="team-card"+
+      (questionIndex%3===i?" current":"");
+    const name=document.createElement("div");
+    name.className="name";
+    name.textContent=(i+1)+"-команда: "+team.name;
+    const score=document.createElement("div");
+    score.className="score";
+    score.textContent=team.score+" ұпай";
+    card.append(name,score);
+    wrap.appendChild(card);
+  });
+}
+
+function showQuestion(){
+  if(questionIndex>=questions.length){
+    finishGame();
+    return;
+  }
+  clearInterval(timerId);
+  answered=false;
+  const q=questions[questionIndex];
+  const activeTeam=teams[questionIndex%3];
+
+  const rounds={
+    1:"⚡ 1-КЕЗЕҢ • ЖЫЛДАМ ЖАУАП",
+    2:"🧠 2-КЕЗЕҢ • ШЫНДЫҚ / ЖАЛҒАН",
+    3:"🔬 3-КЕЗЕҢ • ҚҰПИЯ ОРГАНОИД"
+  };
+  $("roundName").textContent=rounds[q.level];
+  $("questionCount").textContent=
+    (questionIndex+1)+" / "+questions.length;
+  $("gameProgress").style.width=
+    (questionIndex/questions.length*100)+"%";
+  $("turnLabel").textContent="Кезек: "+activeTeam.name;
+  $("questionTitle").textContent=q.q;
+  $("feedback").replaceChildren();
+  $("nextButton").hidden=true;
+  $("skipButton").hidden=false;
+
+  drawScoreboard();
+
+  const area=$("answers");
+  area.replaceChildren();
+  q.opts.forEach((answer,i)=>{
+    const button=document.createElement("button");
+    button.className="answer";
+    button.textContent=String.fromCharCode(65+i)+". "+answer;
+    button.addEventListener("click",()=>chooseAnswer(i));
+    area.appendChild(button);
+  });
+
+  totalTime=q.level===1?35:q.level===2?30:45;
+  timeLeft=totalTime;
+  updateClock();
+
+  timerId=setInterval(()=>{
+    timeLeft=Math.max(0,timeLeft-1);
+    updateClock();
+    if(timeLeft===0){
+      clearInterval(timerId);
+      chooseAnswer(-1);
+    }
+  },1000);
+}
+
+function updateClock(){
+  $("timeValue").textContent=timeLeft;
+  $("timerBar").style.width=
+    (timeLeft/totalTime*100)+"%";
+  $("timeValue").style.color=
+    timeLeft<=10?"#ff8594":"#ffd36c";
+}
+
+function chooseAnswer(selected){
+  if(answered)return;
+  answered=true;
+  clearInterval(timerId);
+
+  const q=questions[questionIndex];
+  const correct=selected===q.correct;
+  const current=teams[questionIndex%3];
+  const points=q.level*10;
+
+  if(correct)current.score+=points;
+
+  document.querySelectorAll(".answer").forEach((button,i)=>{
+    button.disabled=true;
+    if(i===q.correct)button.classList.add("correct");
+    else if(i===selected)button.classList.add("wrong");
+  });
+
+  const feedback=$("feedback");
+  const status=document.createElement("strong");
+  if(correct){
+    status.textContent="✅ Дұрыс! +"+points+" ұпай";
+    status.style.color="#54eead";
+  }else if(selected===-1){
+    status.textContent=timeLeft===0
+      ?"⏰ Уақыт аяқталды!"
+      :"⏭ Сұрақ өткізілді";
+    status.style.color="#ffd36c";
+  }else{
+    status.textContent="❌ Қате жауап. +0 ұпай";
+    status.style.color="#ff9aa7";
+  }
+
+  const explanation=document.createElement("p");
+  explanation.textContent=
+    "Дұрыс жауап: "+q.opts[q.correct]+". "+q.exp;
+  feedback.append(status,explanation);
+
+  drawScoreboard();
+  $("skipButton").hidden=true;
+  $("nextButton").hidden=false;
+  $("nextButton").textContent=
+    questionIndex===questions.length-1
+      ?"🏆 Нәтижені көру"
+      :"Келесі сұрақ →";
+}
+
+function nextQuestion(){
+  if(!answered)return;
+  questionIndex++;
+  if(questionIndex>=questions.length){
+    finishGame();
+  }else{
+    showQuestion();
+  }
+}
+
+function finishGame(){
+  clearInterval(timerId);
+  setView("result");
+
+  const sorted=[...teams].sort((a,b)=>b.score-a.score);
+  const best=sorted[0].score;
+  const winners=sorted.filter(t=>t.score===best);
+
+  $("winner").textContent=
+    winners.length===1
+      ?"🏆 Жеңімпаз: "+winners[0].name
+      :"🏆 Тең нәтиже: "+winners.map(t=>t.name).join(", ");
+
+  const ranking=$("ranking");
+  ranking.replaceChildren();
+  const medals=["🥇","🥈","🥉"];
+
+  sorted.forEach((team,i)=>{
+    const div=document.createElement("div");
+    div.className="rank";
+    const name=document.createElement("span");
+    name.textContent=medals[i]+" "+team.name;
+    const score=document.createElement("strong");
+    score.textContent=team.score+" ұпай";
+    div.append(name,score);
+    ranking.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
